@@ -132,3 +132,5 @@ sample_images/
 
 .DS_Store
 .idea/
+
+metadata.pickle

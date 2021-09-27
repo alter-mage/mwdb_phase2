@@ -11,3 +11,5 @@ if __name__ == '__main__':
 
     while(True):
         task = int(input('Enter task number: '))
+        if task == 1:
+            task1.start_task1()
