@@ -3,6 +3,9 @@ import os
 
 import task0
 import task1
+import task2
+
+task_map = [None, task1.start_task1, task2.start_task2]
 
 if __name__ == '__main__':
     metadata_file = os.path.join(os.getcwd(), 'metadata.pickle')
@@ -11,5 +14,7 @@ if __name__ == '__main__':
 
     while(True):
         task = int(input('Enter task number: '))
-        if task == 1:
-            task1.start_task1()
+        try:
+            task_map[task]()
+        except:
+            print('Invalid task selection, please select from 1-9')
