@@ -2,7 +2,12 @@ from sklearn.cluster import KMeans
 import numpy as np
 
 def compute_k_means(X):
-    kmeans = KMeans(n_clusters=8, init='k-means++', n_init=10, max_iter=300, algorithm='auto', random_state=0).fit(X)
+    kmeans = KMeans(n_clusters=8,
+                    init='k-means++',
+                    n_init=10,
+                    max_iter=300,
+                    algorithm='auto',
+                    random_state=0).fit(X)
     return kmeans
 
 
