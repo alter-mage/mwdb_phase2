@@ -2,9 +2,11 @@ import pickle
 
 import k_means
 import svd
+import lda
 
+feature_models = ['color_moment', 'elbp', 'hog']
 model_map = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.compute_svd, None, k_means.compute_k_means]
+reduction_technique_map = [None, svd.compute_svd, lda.compute_lda, k_means.compute_k_means]
 
 def start_task2():
 
@@ -24,9 +26,9 @@ def start_task2():
             yinvalid = False
 
     #k measured starting from 1, not 0
-    upperKLimit = len(metadata)
+    k_upper_limit = len(metadata[next(iter(metadata))][feature_models[model]])
     k = -1
-    while not (k >= 1 and k <= upperKLimit-1): #STRIKE there should also be an upper limit validation, but that needs to be fetched from how much meta data,
+    while not (k >= 1 and k <= k_upper_limit-1): #STRIKE there should also be an upper limit validation, but that needs to be fetched from how much meta data,
         k = int(input('value for k: '))
 
     reduction_technique = -1

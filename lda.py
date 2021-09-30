@@ -1,6 +1,6 @@
 from sklearn.decomposition import LatentDirichletAllocation as LDA
 
-def lda(Data_matrix , k):
+def compute_lda(Data_matrix , k):
     """
     parameters:
         Data_matrix: The matrix of object*features
