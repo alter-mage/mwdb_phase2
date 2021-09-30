@@ -5,7 +5,6 @@ import svd
 import lda
 
 feature_models = ['color_moment', 'elbp', 'hog']
-model_map = ['color_moment', 'elbp', 'hog']
 reduction_technique_map = [None, svd.compute_svd, lda.compute_lda, k_means.compute_k_means]
 
 def start_task2():
@@ -39,7 +38,7 @@ def start_task2():
     for key in metadata:
         key_tokens = key.split('.')[0].split('-')
         if key_tokens[1] == y: #I changed from 0 to 1 because Y would be 1
-            data_matrix.append(metadata[key][model_map[model]])
+            data_matrix.append(metadata[key][feature_models[model]])
 
     try:
         semantics_matrix = reduction_technique_map[reduction_technique](data_matrix)
