@@ -4,7 +4,7 @@ import k_means
 import svd
 
 model_map = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.compute_svd, None, k_means.compute_k_means]
+reduction_technique_map = [None, svd.compute_svd, None, k_means.k_means]
 
 def start_task2():
 
@@ -20,13 +20,13 @@ def start_task2():
     yinvalid = True
     while yinvalid:
         y = int(input('value for y: ')) #should be 1-40 for the Y value
-        if y >= 1 and y <= 40:
+        if 1 <= y <= 40:
             yinvalid = False
 
     #k measured starting from 1, not 0
     upperKLimit = len(metadata)
     k = -1
-    while not (k >= 1 and k <= upperKLimit-1): #STRIKE there should also be an upper limit validation, but that needs to be fetched from how much meta data,
+    while not (1 <= k <= upperKLimit - 1): #STRIKE there should also be an upper limit validation, but that needs to be fetched from how much meta data,
         k = int(input('value for k: '))
 
     reduction_technique = -1
@@ -36,11 +36,12 @@ def start_task2():
     data_matrix, semantics_matrix = [], []
     for key in metadata:
         key_tokens = key.split('.')[0].split('-')
-        if key_tokens[1] == y: #I changed from 0 to 1 because Y would be 1
+        if int(key_tokens[2]) == y: #I changed from 0 to 1 because Y would be 1
             data_matrix.append(metadata[key][model_map[model]])
 
     try:
-        semantics_matrix = reduction_technique_map[reduction_technique](data_matrix)
+        reduction_obj = reduction_technique_map[reduction_technique](k, data_matrix)
+        semantics_matrix = reduction_obj.get_latent_semantics()
 
         #TODO: return
     except:

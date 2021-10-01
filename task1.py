@@ -4,7 +4,7 @@ import k_means
 import svd
 
 model_map = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.compute_svd, None, k_means.compute_k_means]
+reduction_technique_map = [None, svd.compute_svd, None, k_means.k_means]
 valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise1', 'noise2', 'original',
            'poster', 'rot', 'smooth', 'stipple']
 
@@ -36,15 +36,19 @@ def start_task1():
     data_matrix, semantics_matrix = [], []
     for key in metadata:
         key_tokens = key.split('.')[0].split('-')
-        if key_tokens[0] == x:
+        if key_tokens[1] == x:
             data_matrix.append(metadata[key][model_map[model]])
 
     try:
-        semantics_matrix = reduction_technique_map[reduction_technique](data_matrix)
+        reduction_obj = reduction_technique_map[reduction_technique](k, data_matrix)
+        semantics_matrix = reduction_obj.get_latent_semantics()
 
         # TODO: return
     except:
         print('Something is invalid, exception thrown')
         return
+
+if __name__ == '__main__':
+    start_task1()
 
 
