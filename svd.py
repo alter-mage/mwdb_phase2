@@ -1,12 +1,20 @@
-import numpy as np
+from sklearn.decomposition import TruncatedSVD
 
-def compute_svd(X):
-    # Performing SVD with numpy
-    U, D, VT = np.linalg.svd(X)
-    svdListReturn = [U, D, VT]
-    return svdListReturn
+def compute_svd(X_original, k):
+    """
+    parameters:
+        X_original: The matrix of object*features
+        k: Number of latent features
 
-#Might be helpful?
-def compute_svd_reverse(U, D, VT):
-    X_remake = (U @ np.diag(D) @ VT)
-    return X_remake
+    returns:
+        coefs:  Matrix of K latent features
+    """
+    trun_svd = TruncatedSVD(n_components=k)
+    X = trun_svd.fit_transform(X_original)
+    return X
+
+#Might be helpful, not sure if correct?
+def compute_svd_reverse(X, k):
+    trun_svd = TruncatedSVD(n_components=k)
+    X_original = trun_svd.fit_transform(X)
+    return X_original

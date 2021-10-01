@@ -3,8 +3,8 @@ import pickle
 import k_means
 import svd
 
-model_map = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.compute_svd, None, k_means.k_means]
+feature_models = ['color_moment', 'elbp', 'hog']
+reduction_technique_map = [None, svd.compute_svd, None, k_means.compute_k_means]
 valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise1', 'noise2', 'original',
            'poster', 'rot', 'smooth', 'stipple']
 
@@ -37,7 +37,7 @@ def start_task1():
     for key in metadata:
         key_tokens = key.split('.')[0].split('-')
         if key_tokens[1] == x:
-            data_matrix.append(metadata[key][model_map[model]])
+            data_matrix.append(metadata[key][feature_models[model]])
 
     try:
         reduction_obj = reduction_technique_map[reduction_technique](k, data_matrix)
