@@ -13,6 +13,7 @@ reduction_technique_map = [None, svd.compute_svd, lda.compute_lda, k_means.k_mea
 valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise1', 'noise2', 'original',
            'poster', 'rot', 'smooth', 'stipple']
 
+
 def start_task3():
     with open('metadata.pickle', 'rb') as handle:
         metadata = pickle.load(handle)
@@ -29,6 +30,7 @@ def start_task3():
             1 <= k <= k_upper_limit - 1
     ):
         k = int(input('value for k: '))
+
 
 if __name__ == '__main__':
     start_task3()
