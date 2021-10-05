@@ -32,7 +32,7 @@ class lda:
         self.k = k
         self.lda_object = LDA(n_components=self.k).fit(self.Data_matrix)
     
-    def compute_lda(self):
+    def transform(self):
         """
         Parameters:
             self: self object 
