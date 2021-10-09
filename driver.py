@@ -12,7 +12,7 @@ task_map = [task0.start_task0, task1.start_task1, task2.start_task2, task3.start
 if __name__ == '__main__':
     metadata_file = os.path.join(os.getcwd(), 'metadata.pickle')
     if not os.path.isfile(metadata_file):
-        task0.generate_pickle(metadata_file)
+        task0.start_task0(metadata_file)
 
     while(True):
         task = int(input('Enter task number: '))

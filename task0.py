@@ -7,7 +7,7 @@ import color_moment
 import elbp
 import hog
 
-def generate_pickle(metadata_file):
+def start_task0(metadata_file):
     images_dir = os.path.join(os.getcwd(), 'sample_images')
     if not os.path.isdir(images_dir):
         print('download image dataset first')

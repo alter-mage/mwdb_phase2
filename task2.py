@@ -5,7 +5,7 @@ import svd
 import lda
 
 feature_models = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.compute_svd, lda.compute_lda, k_means.k_means,lda.lda]
+reduction_technique_map = [None, svd.svd, lda.lda, k_means.k_means]
 
 
 def start_task2():
