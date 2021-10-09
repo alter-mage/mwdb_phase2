@@ -19,30 +19,30 @@ class lda:
             Returns a Matrix of K latent features * N objects
             
     """
-    def __init__(self,Data_matrix,k):
+    def __init__(self, data_matrix, k):
         """
         parameters:
-            Data_matrix: ndarray of shape (num_objects, num_features)
+            data_matrix: ndarray of shape (num_objects, num_features)
                 Data matrix to be reduced
 
             k: int
                 Number of reduced features
         """
-        self.Data_matrix = Data_matrix
+        self.data_matrix = data_matrix
         self.k = k
-        self.lda_object = LDA(n_components=self.k).fit(self.Data_matrix)
+        self.lda_ = LDA(n_components=self.k).fit(self.data_matrix)
     
-    def transform(self,Data_matrix):
+    def transform(self, data_matrix):
         """
         Parameters:
-            self: self object 
+            self: self object
+            data_matrix: original data matrix
         
         returns:
             self.coefs:
-                matrix of K latent features * N Objects 
+                matrix of K latent features * N Objects and transformed data matrix
         """
-        self.coefs =self.lda_object.components_() 
-        return self.coefs
+        return self.lda_.transform(data_matrix), self.lda_.components_
 
 
 

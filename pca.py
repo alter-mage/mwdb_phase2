@@ -14,11 +14,8 @@ class pca:
             Data matrix to be reduced
 
     Methods:
-        get_latent_semantics()
-            Returns k reduced latent semantics of X
-
         transform(X)
-            Transforms and returns X in the latent semantics space
+            Transforms and returns X in the latent semantic space and the latent semantics
     """
 
     def __init__(self, k, X):
@@ -30,8 +27,8 @@ class pca:
             X: ndarray of shape (num_objects, num_features)
                 Data matrix to be reduced
         """
-        self.pca = PCA(n_components=k)
-        self.pca.fit(X)
+        self.pca_ = PCA(n_components=k)
+        self.pca_.fit(X)
 
     def transform(self, X):
         """
@@ -40,9 +37,9 @@ class pca:
                 Data matrix to be reduced
 
         Returns:
-            Transforms and returns X in the latent semantics space
+            Transforms and returns X in the latent semantic space and the latent semantics
         """
-        return self.pca.transform(X), self.pca.components_
+        return self.pca_.transform(X), self.pca_.components_
 
 
 if __name__ == '__main__':
