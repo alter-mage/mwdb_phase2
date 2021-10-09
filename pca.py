@@ -43,4 +43,6 @@ class pca:
 
 
 if __name__ == '__main__':
-    pca_obj = pca(1, [1, 2, 3])
+    dummy_data = [[1, 2, 3], [2, 4, 6]]
+    pca_obj = pca(1, dummy_data)
+    pca_obj.transform(X=dummy_data)

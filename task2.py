@@ -43,7 +43,7 @@ def start_task2():
 
     try:
         reduction_obj = reduction_technique_map[reduction_technique](k, data_matrix)
-        semantics_matrix = reduction_obj.get_latent_semantics()
+        semantics_matrix = reduction_obj.transform(data_matrix)
 
         # TODO: return
     except:
