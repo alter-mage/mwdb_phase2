@@ -1,10 +1,11 @@
 import pickle
 import lda
 import k_means
+import pca
 import svd
 
 feature_models = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.svd, None, k_means.k_means,lda.lda]
+reduction_technique_map = [pca.pca, svd.svd, lda.lda, k_means.k_means]
 valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise1', 'noise2', 'original',
            'poster', 'rot', 'smooth', 'stipple']
 

@@ -1,11 +1,12 @@
 import pickle
 
 import k_means
+import pca
 import svd
 import lda
 
 feature_models = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [None, svd.svd, lda.lda, k_means.k_means]
+reduction_technique_map = [pca.pca, svd.svd, lda.lda, k_means.k_means]
 
 
 def start_task2():
