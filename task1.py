@@ -3,6 +3,7 @@ import lda
 import k_means
 import pca
 import svd
+import aggregation
 import numpy as np
 
 feature_models = ['color_moment', 'elbp', 'hog']
@@ -36,11 +37,14 @@ def start_task1():
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
 
-    data_matrix = []
+    subject_image_map = {}
     for key in metadata:
         key_tokens = key.split('.')[0].split('-')
         if key_tokens[1] == x:
-            data_matrix.append(metadata[key][feature_models[model]])
+            if key_tokens[2] not in subject_image_map:
+                subject_image_map[key_tokens[2]] = []
+            subject_image_map[key_tokens[2]].append(metadata[key][reduction_technique_map[reduction_technique]])
+    data_matrix = aggregation.group_by_subject(subject_image_map)
     
     #flattenign the data matrix to be used
     # Not sure if this flattened thing will be useful if number of images in all the folder of each type are not same
