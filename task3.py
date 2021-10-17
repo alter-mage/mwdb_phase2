@@ -37,7 +37,8 @@ def start_task3():
         pickle.dump({
             'left_matrix': left_matrix,
             'core_matrix': core_matrix,
-            'right_matrix': right_matrix
+            'right_matrix': right_matrix,
+            'simp': Tsim
         }, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     fields = ['X']
