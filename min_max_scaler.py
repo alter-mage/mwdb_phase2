@@ -1,6 +1,5 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-
 def transform(DataMatrix):
     """
     Parameters:
@@ -18,9 +17,8 @@ def transform(DataMatrix):
         Data_matrix_transformed = Scaler.transform(DataMatrix)
         return Data_matrix_transformed
     except:
-        print("Something went wrong in min_max_scaler.py file")
+        print("Something went wrong in min_max_scaler file")
 
-
-#Testing with a data matrix
-#data = np.array([[-1, 2], [0, 6], [0, 10], [1, 18]])
+#testing 
+#data = np.array([[-1, 2], [-0.5, 6], [0, 10], [1, 18]])
 #print(transform(data))
