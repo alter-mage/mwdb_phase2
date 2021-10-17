@@ -69,7 +69,7 @@ def start_task1():
         left_matrix,right_matrix = obj2.transform(data_matrix)
         
 
-        np.savetxt("task1_subject_weights.csv", left_flattened, delimiter=",")
+        #np.savetxt("task1_subject_weights.csv", left_flattened, delimiter=",")
         pickle.dump(right_matrix,open("task1_right.pkl","w"))
 
         # TODO: return
