@@ -133,7 +133,6 @@ sample_images/
 .DS_Store
 .idea/
 
-metadata.pickle
-simp.pickle
 *.pickle
 *.json
+*.csv

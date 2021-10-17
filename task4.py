@@ -1,7 +1,6 @@
 import pickle
 import utilities
-import json
-import codecs
+import csv
 
 def start_task4():
     with open('metadata.pickle', 'rb') as handle:
@@ -24,7 +23,11 @@ def start_task4():
         reduction_technique = int(input('reduction technique (0-3): '))
 
     Ssim = simp[utilities.feature_models[model]]['Ssim']
-    json.dump(Ssim.tolist(), codecs.open('Ssim.json', 'w', encoding='utf-8'))
+    subjects = simp[utilities.feature_models[model]]['subjects']
+    with open('Ssim.csv', 'w', newline='') as handle:
+        write = csv.writer(handle)
+        write.writerow(subjects)
+        write.writerows(Ssim)
 
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, Ssim)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
@@ -37,7 +40,16 @@ def start_task4():
             'right_matrix': right_matrix
         }, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    json.dump(left_matrix.tolist(), codecs.open(latent_out_file_path + '.json', 'w', encoding='utf-8'))
+    fields = ['Y']
+    for i in range(1, k+1):
+        fields.append('k_'+str(i))
+    with open(latent_out_file_path+'.csv', 'w', newline='') as handle:
+        write = csv.writer(handle)
+        write.writerow(fields)
+        for i, row in enumerate(left_matrix):
+            r = row.tolist()
+            r.insert(0, subjects[i])
+            write.writerow(r)
 
 
 if __name__ == '__main__':
