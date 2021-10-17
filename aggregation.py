@@ -3,7 +3,7 @@ import utilities
 
 class aggregation:
 
-    def group_by_subject(metadata, reduction_technique):
+    def group_by_subject(self, metadata, x, reduction_technique):
         subject_image_map = {}
         for key in metadata:
             key_tokens = key.split('.')[0].split('-')

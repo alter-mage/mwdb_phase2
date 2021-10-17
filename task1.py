@@ -5,12 +5,7 @@ import pca
 import svd
 import aggregation
 import numpy as np
-
-feature_models = ['color_moment', 'elbp', 'hog']
-reduction_technique_map = [pca.pca, svd.svd, lda.lda, k_means.k_means]
-valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise1', 'noise2', 'original',
-           'poster', 'rot', 'smooth', 'stipple']
-
+import utilities
 
 def start_task1():
     # moved up for upper limit validation of k value
@@ -23,7 +18,7 @@ def start_task1():
         model = int(input('model number (0-2): '))
 
     x = 'invalid x'
-    while x not in valid_x:
+    while x not in utilities.valid_x:
         x = input('value for x: ')
 
     # k measured starting from 1, not 0
@@ -37,16 +32,16 @@ def start_task1():
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
 
-    data_matrix = aggregation.group_by_subject(metadata, reduction_technique)
+    data_matrix = aggregation.group_by_subject(metadata, x, reduction_technique)
     
     #flattenign the data matrix to be used
     # Not sure if this flattened thing will be useful if number of images in all the folder of each type are not same
 
     try:
-        reduction_obj_right = reduction_technique_map[reduction_technique](k, data_matrix)
+        reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, data_matrix)
         left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
 
-        latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', feature_models[model], str(x), str(k), str(reduction_technique))
+        latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', utilities.feature_models[model], str(x), str(k), str(reduction_technique))
         with open(latent_out_file_path, 'wb') as handle:
             pickle.dump({
                 'left_matrix': left_matrix,

@@ -1,7 +1,5 @@
 import pickle
-
 import utilities
-
 
 def start_task2():
     # moved up for upper limit validation of k value
