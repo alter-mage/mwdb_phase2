@@ -1,8 +1,4 @@
 import pickle
-import lda
-import k_means
-import pca
-import svd
 import aggregation
 import numpy as np
 import utilities
@@ -32,7 +28,7 @@ def start_task1():
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
 
-    data_matrix = aggregation.group_by_subject(metadata, x, reduction_technique)
+    data_matrix = aggregation.group_by_subject(metadata, x, model)
     
     #flattenign the data matrix to be used
     # Not sure if this flattened thing will be useful if number of images in all the folder of each type are not same

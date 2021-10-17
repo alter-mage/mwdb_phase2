@@ -16,7 +16,8 @@ if __name__ == '__main__':
 
     while(True):
         task = int(input('Enter task number: '))
-        try:
-            task_map[task]()
-        except:
-            print('Invalid task selection, please select from 1-9')
+        task_map[task]()
+        # try:
+        #     task_map[task]()
+        # except:
+        #     print('Invalid task selection, please select from 1-9')

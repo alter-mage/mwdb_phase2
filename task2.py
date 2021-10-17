@@ -1,5 +1,6 @@
 import pickle
 import utilities
+import aggregation
 
 def start_task2():
     # moved up for upper limit validation of k value
@@ -28,11 +29,7 @@ def start_task2():
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
 
-    data_matrix = []
-    for key in metadata:
-        key_tokens = key.split('.')[0].split('-')
-        if int(key_tokens[2]) == y:  # I changed from 0 to 1 because Y would be 1
-            data_matrix.append(metadata[key][utilities.feature_models[model]])
+    data_matrix = aggregation.group_by_type(metadata, y, model)
 
     try:
         reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, data_matrix)
