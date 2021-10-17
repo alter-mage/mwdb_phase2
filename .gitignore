@@ -135,3 +135,5 @@ sample_images/
 
 metadata.pickle
 simp.pickle
+*.pickle
+*.json

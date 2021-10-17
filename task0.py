@@ -31,8 +31,8 @@ def start_task0(metadata_file, simp_file):
 
     similarity_map = {}
     for i in range(3):
-        type_matrix, type_type_similarity = aggregation.group_by_subject_all(images, i)
-        subject_matrix, subject_subject_similarity = aggregation.group_by_type_all(images, i)
+        type_matrix, type_type_similarity = aggregation.group_by_type_all(images, i)
+        subject_matrix, subject_subject_similarity = aggregation.group_by_subject_all(images, i)
         similarity_map[utilities.feature_models[i]] = {
             'T': type_matrix,
             'Tsim': type_type_similarity,

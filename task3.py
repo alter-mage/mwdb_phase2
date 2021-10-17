@@ -1,6 +1,7 @@
 import pickle
 import utilities
 import json
+import codecs
 
 def start_task3():
     with open('metadata.pickle', 'rb') as handle:
@@ -23,22 +24,20 @@ def start_task3():
         reduction_technique = int(input('reduction technique (0-3): '))
 
     Tsim = simp[utilities.feature_models[model]]['Tsim']
-    with open('Tsim.json', 'wb') as handle:
-        json.dumps(Tsim)
+    json.dump(Tsim.tolist(), codecs.open('Tsim.json', 'w', encoding='utf-8'))
 
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, Tsim)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
 
     latent_out_file_path = '%s_%s_%s_%s' % ('3', utilities.feature_models[model], str(k), str(reduction_technique))
-    with open(latent_out_file_path, 'wb') as handle:
+    with open(latent_out_file_path+'.pickle', 'wb') as handle:
         pickle.dump({
             'left_matrix': left_matrix,
             'core_matrix': core_matrix,
             'right_matrix': right_matrix
         }, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    with open(latent_out_file_path+'.json', 'wb') as handle:
-        json.dumps(left_matrix)
+    json.dump(left_matrix.tolist(), codecs.open(latent_out_file_path+'.json', 'w', encoding='utf-8'))
 
 
 if __name__ == '__main__':
