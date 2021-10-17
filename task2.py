@@ -36,15 +36,24 @@ def start_task2():
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
 
-    data_matrix, semantics_matrix = [], []
+    data_matrix = []
     for key in metadata:
         key_tokens = key.split('.')[0].split('-')
         if int(key_tokens[2]) == y:  # I changed from 0 to 1 because Y would be 1
             data_matrix.append(metadata[key][feature_models[model]])
 
     try:
-        reduction_obj = reduction_technique_map[reduction_technique](k, data_matrix)
-        semantics_matrix = reduction_obj.transform(data_matrix)
+        reduction_obj_right = reduction_technique_map[reduction_technique](k, data_matrix)
+        left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
+
+        latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', feature_models[model], str(y), str(k), str(reduction_technique))
+        with open(latent_out_file_path, 'wb') as handle:
+            pickle.dump({
+                'left_matrix': left_matrix,
+                'core_matrix': core_matrix,
+                'right_matrix': right_matrix
+            }, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
 
         # TODO: return
     except:

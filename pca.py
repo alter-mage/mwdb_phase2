@@ -43,7 +43,7 @@ class pca:
         # self.pca_ = PCA(n_components=k)
         # self.pca_.fit(X)
 
-    def transform(self, X):
+    def transform(self):
         """
         Parameters:
             X: ndarray of shape (num_objects, num_features)
@@ -52,7 +52,7 @@ class pca:
         Returns:
             Transforms and returns X in the latent semantic space and the latent semantics
         """
-        return self.u_, self.u_transpose_
+        return self.u_, self.s_, self.u_transpose_
 
 
 if __name__ == '__main__':
