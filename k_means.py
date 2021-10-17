@@ -1,5 +1,6 @@
 from sklearn.cluster import KMeans
 import numpy as np
+import scipy
 
 class k_means:
     """
@@ -28,6 +29,7 @@ class k_means:
             X: ndarray of shape (num_objects, num_features)
                 Data matrix to be reduced
         """
+        self.x_ = np.array(X, dtype=np.float32)
         self.k_means_ = KMeans(
             n_clusters=k,
             n_init=10,
@@ -35,13 +37,20 @@ class k_means:
             algorithm='auto',
             random_state=0
         ).fit(X)
+        self.right_fac = self.k_means_.cluster_centers_
+        X_T = np.transpose(X)
+        self.left_fac = scipy.spatial.distance.cdist(X, self.right_fac, metric='euclidean')
+        self.centre_mat = []
+        print('here')
 
-    def get_latent_semantics(self):
+    def get_left_factor_matrix(self):
         """
         Returns:
             k latent semantic features
         """
-        return self.k_means_.cluster_centers_
+
+
+        return left_fac
 
     def transform(self, X):
         """
@@ -52,7 +61,7 @@ class k_means:
         Returns:
             Transforms and returns X in the latent semantics space
         """
-        return self.k_means_.transform(X)
+        return self.left_fac, self.right_fac, self.centre_mat
 
 
 # Keeping this alive in case, definitely not using this rn!
