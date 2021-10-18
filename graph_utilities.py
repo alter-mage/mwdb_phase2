@@ -6,9 +6,9 @@ import numpy as np
 
 def get_rank(similarity_m, m):
     pass
-    s_vector = np.full((40, 1), fill_value=(1/40), dtype=np.float32)
-    pagerank = np.random.uniform(low=0, high=1, size=(40, 1))
-    pagerank_error = np.zeros((40, 1))
+    s_vector = np.full(40, fill_value=(1/40), dtype=np.float32)
+    pagerank = np.random.uniform(low=0, high=1, size=40)
+    pagerank_error = np.zeros(40)
     c = 0.3
 
     convergence = False
@@ -23,19 +23,11 @@ def get_rank(similarity_m, m):
         pagerank = pagerank_new
         pagerank_error = pagerank_error_new
 
-    h = []
-    heapq.heapify(h)
+    pagerank_with_index = []
     for i, row in enumerate(pagerank):
-        heapq.heappush(h, (-row, i+1))
-        if len(h) > m:
-            heapq.heappop(h)
-
-    ranks = []
-    while(h):
-        curr = heapq.heappop(h)
-        ranks.append((curr[1], -curr[0]))
-
-    return ranks
+        pagerank_with_index.append((i, row))
+    pagerank_with_index.sort(reverse=True, key=lambda x: x[1])
+    return pagerank_with_index[:m]
 
 
 def get_ascos_similarity(transition_matrix):

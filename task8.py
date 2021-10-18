@@ -40,8 +40,6 @@ def start_task8():
         writer = csv.writer(handle)
         writer.writerows(ranks)
 
-    print('here')
-
 
 if __name__ == '__main__':
     start_task8()
