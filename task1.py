@@ -2,6 +2,8 @@ import pickle
 import aggregation
 import utilities
 import csv
+import min_max_scaler
+import numpy as np
 
 def start_task1():
     # moved up for upper limit validation of k value
@@ -28,11 +30,12 @@ def start_task1():
         reduction_technique = int(input('reduction technique (0-3): '))
 
     subjects, data_matrix = aggregation.group_by_subject(metadata, x, model)
+    data_matrix = min_max_scaler.transform(data_matrix)
 
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, data_matrix)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
 
-    latent_out_file_path = '%s_%s_%s_%s_%s.pickle' % ('1', utilities.feature_models[model], str(x), str(k), str(reduction_technique))
+    latent_out_file_path = '%s_%s_%s_%s_%s' % ('1', utilities.feature_models[model], str(x), str(k), str(reduction_technique))
     with open(latent_out_file_path+'.pickle', 'wb') as handle:
         pickle.dump({
             'left_matrix': left_matrix,
