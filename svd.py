@@ -1,6 +1,5 @@
 # coding=utf-8
-from sklearn.decomposition import TruncatedSVD
-
+import numpy as np
 
 # it's not realizing the attributes, not sure why mine is having issues, might just be my IDE
 
@@ -23,23 +22,33 @@ class svd:
                 Transforms and returns X in the latent semantic space and latent semantics
         """
 
-    def __init__(self, k, X):
+    def __init__(self, Datamatrix,k ):
         """
         Parameters:
+            Datamatrix: ndarray of shape (num_objects, num_features)
+                Data matrix to be reduced
             k: int
                 Number of reduced features
-
-            X: ndarray of shape (num_objects, num_features)
-                Data matrix to be reduced
         """
-        self.svd_ = TruncatedSVD(
-            # I put in the default values according to documentation except for k
-            n_components=k,
-            algorithm='randomized',
-            n_iter=5,
-            random_state=None,
-            tol=0.0,
-        ).fit(X)
+
+        self.matrix1 = Datamatrix @ Datamatrix.transpose()
+        self.matrix2 = Datamatrix.transpose() @ Datamatrix
+        
+        self.eigen_values1,self.eigen_vectors1 = np.linalg.eig(self.matrix1)
+        self.eigen_values2,self.eigen_vectors2 = np.linalg.eig(self.matrix2)
+        
+        self.idx1 = self.eigen_values1.argsort()[::-1]   
+        self.eigen_values1 = self.eigen_values1[self.idx1]
+        self.eigen_vectors1 = self.eigen_vectors1[:,self.idx1]
+        
+        self.idx2 = self.eigen_values2.argsort()[::-1]   
+        self.eigen_values2 = self.eigen_values2[self.idx2]
+        self.eigen_vectors2 = self.eigen_vectors2[:,self.idx2]
+        
+        self.left = self.eigen_vectors1[:,:k]
+        self.S = np.diag(self.eigen_values1[:k])
+        self.right = self.eigen_vectors2[:,:k].transpose()
+
 
     def transform(self, X):
         """
@@ -52,7 +61,12 @@ class svd:
         """
 
         # might want fit_transform, but should have been fitted already so ¯\_(ツ)_/¯
-        return self.svd_.transform(X), self.svd_.components_
+        return self.left , self.right
+
+
+
+
+
 
     # Might be helpful later
     # def compute_svd_reverse(X, k):
