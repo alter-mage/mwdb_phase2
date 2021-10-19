@@ -46,7 +46,7 @@ class svd:
         self.eigen_vectors2 = self.eigen_vectors2[:,self.idx2]
         
         self.left = self.eigen_vectors1[:,:k]
-        self.S = np.diag(self.eigen_values1[:k])
+        self.S = np.diag(self.eigen_values1[:k]**0.5)
         self.right = self.eigen_vectors2[:,:k].transpose()
 
 
@@ -61,7 +61,7 @@ class svd:
         """
 
         # might want fit_transform, but should have been fitted already so ¯\_(ツ)_/¯
-        return self.left , self.right
+        return self.left , self.S ,self.right
 
 
 
