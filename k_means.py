@@ -1,6 +1,7 @@
 from sklearn.cluster import KMeans
 import numpy as np
 import scipy
+import scipy.spatial
 
 class k_means:
     """
@@ -31,28 +32,26 @@ class k_means:
         """
         self.x_ = np.array(X, dtype=np.float32)
         self.k_means_ = KMeans(
-            n_clusters=k,
-            n_init=10,
-            max_iter=300,
-            algorithm='auto',
-            random_state=0
-        ).fit(X)
-        self.right_fac = self.k_means_.cluster_centers_
-        X_T = np.transpose(X)
-        self.left_fac = scipy.spatial.distance.cdist(X, self.right_fac, metric='euclidean')
-        self.centre_mat = []
-        print('here')
+            n_clusters=k
+        ).fit(self.x_)
 
-    def get_left_factor_matrix(self):
-        """
-        Returns:
-            k latent semantic features
-        """
+        self.right_fac_ = self.k_means_.cluster_centers_
+        self.x_t_ = self.x_.transpose()
+        self.left_fac_ = np.reciprocal(
+            np.array(scipy.spatial.distance.cdist(self.x_, self.right_fac_, metric='euclidean'), dtype=np.float32)
+        )
+        self.centre_mat_ = []
 
+    # def get_left_factor_matrix(self):
+    #     """
+    #     Returns:
+    #         k latent semantic features
+    #     """
+    #
+    #
+    #     return self.left_fac_, self.centre_mat_, self.right_fac_
 
-        return left_fac
-
-    def transform(self, X):
+    def transform(self):
         """
         Parameters:
             X: ndarray of shape (num_objects, num_features)
@@ -61,7 +60,13 @@ class k_means:
         Returns:
             Transforms and returns X in the latent semantics space
         """
-        return self.left_fac, self.right_fac, self.centre_mat
+        return self.left_fac_, self.centre_mat_, self.right_fac_
+
+
+def get_transformation(data, right_matrix):
+    return np.reciprocal(
+        np.array(scipy.spatial.distance.cdist(np.array(data), np.array(right_matrix), metric='euclidean'), dtype=np.float32)
+    )
 
 
 # Keeping this alive in case, definitely not using this rn!

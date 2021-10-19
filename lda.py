@@ -1,4 +1,5 @@
 from sklearn.decomposition import LatentDirichletAllocation as LDA
+import numpy as np
 
 
 class lda:
@@ -28,22 +29,25 @@ class lda:
             k: int
                 Number of reduced features
         """
-        self.data_matrix = data_matrix
-        self.k = k
-        self.lda_ = LDA(n_components=self.k).fit(self.data_matrix)
+        self.data_matrix_ = data_matrix
+        self.k_ = k
+        self.lda_ = LDA(n_components=self.k_).fit(self.data_matrix_)
+        self.u_, self.s_, self.v_ = self.lda_.transform(data_matrix), [], self.lda_.components_
     
-    def transform(self, data_matrix):
+    def transform(self):
         """
         Parameters:
             self: self object
-            data_matrix: original data matrix
         
         returns:
             self.coefs:
                 matrix of K latent features * N Objects and transformed data matrix
         """
-        return self.lda_.transform(data_matrix), self.lda_.components_
+        return self.u_, self.s_, self.v_
 
+
+def get_transformation(data, right_matrix):
+    return np.dot(np.array(data), np.array(right_matrix))
 
 
 """
@@ -63,5 +67,4 @@ def compute_lda(Data_matrix , k):
     latent_features = lda_object.components_()
     
     return latent_features
-
-""" 
+"""
