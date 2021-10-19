@@ -22,7 +22,7 @@ class svd:
                 Transforms and returns X in the latent semantic space and latent semantics
         """
 
-    def __init__(self, Datamatrix,k ):
+    def __init__(self, k, Datamatrix,):
         """
         Parameters:
             Datamatrix: ndarray of shape (num_objects, num_features)
@@ -50,7 +50,7 @@ class svd:
         self.right = self.eigen_vectors2[:, :k].transpose()
 
 
-    def transform(self, X):
+    def transform(self):
         """
         parameters:
             X: The matrix of object*features

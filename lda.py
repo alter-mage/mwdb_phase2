@@ -20,7 +20,7 @@ class lda:
             Returns a Matrix of K latent features * N objects
             
     """
-    def __init__(self, data_matrix, k):
+    def __init__(self, k, data_matrix):
         """
         parameters:
             data_matrix: ndarray of shape (num_objects, num_features)
