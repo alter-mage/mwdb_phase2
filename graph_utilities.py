@@ -4,8 +4,31 @@ import math
 import numpy as np
 
 
+def get_rank_with_seeds(transition_m, m, seeds_list):
+
+    random_jump_factor = 0.5
+    seeds_v = np.zeros((40, 1))
+    for seed in seeds_list:
+        seeds_v[seed-1] = 1/40
+
+    ranks = np.dot((np.identity(40) - (1-random_jump_factor) * transition_m), random_jump_factor * seeds_v)
+    ranks = ranks.reshape(40)
+
+    teleportation_discount = np.zeros(40)
+    for i, row in enumerate(ranks):
+        if i+1 not in seeds_list:
+            teleportation_discount[i] = ranks[i] / (1-random_jump_factor)
+        else:
+            teleportation_discount[i] = (ranks[i] - (random_jump_factor / 40)) / (1-random_jump_factor)
+
+    ranks_with_discount = []
+    for i, row in enumerate(teleportation_discount):
+        ranks_with_discount.append((i+1, row))
+    ranks_with_discount = sorted(ranks_with_discount, reverse=True, key=lambda x: x[1])
+    return ranks_with_discount[:m]
+
+
 def get_rank(similarity_m, m):
-    pass
     s_vector = np.full(40, fill_value=(1/40), dtype=np.float32)
     pagerank = np.random.uniform(low=0, high=1, size=40)
     pagerank_error = np.zeros(40)

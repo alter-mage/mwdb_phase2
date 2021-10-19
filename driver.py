@@ -7,9 +7,10 @@ import task2
 import task3
 import task4
 import task8
+import task9
 
 task_map = [task0.start_task0, task1.start_task1, task2.start_task2, task3.start_task3, task4.start_task4,
-            None, None, None, task8.start_task8]
+            None, None, None, task8.start_task8, task9.start_task9]
 
 if __name__ == '__main__':
     metadata_file = os.path.join(os.getcwd(), 'metadata.pickle')
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     if not os.path.isfile(metadata_file):
         task0.start_task0(metadata_file, simp_file)
 
-    while(True):
+    while True:
         task = int(input('Enter task number: '))
         task_map[task]()
         # try:
