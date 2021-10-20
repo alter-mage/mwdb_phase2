@@ -21,9 +21,19 @@ if __name__ == '__main__':
     if not os.path.isfile(metadata_file):
         task0.start_task0(metadata_file, simp_file)
 
-    while True:
-        task = int(input('Enter task number: '))
-        task_map[task]()
+    inpt = ''
+    while not inpt == 'q':
+        inpt = input('Enter task number (1-9, q to quit): ')
+        try:
+            task = int(inpt)
+            if 1 <= task <= 9:
+                task_map[task]()
+        except:
+            pass
+
+
+
+
         # try:
         #     task_map[task]()
         # except:

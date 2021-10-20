@@ -6,7 +6,7 @@ import utilities
 
 
 def start_task0(metadata_file, simp_file):
-    images_dir = os.path.join(os.getcwd(), 'sample_images')
+    images_dir = os.path.join(os.getcwd(), 'all')
     if not os.path.isdir(images_dir):
         print('download image dataset first')
 
