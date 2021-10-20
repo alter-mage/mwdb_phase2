@@ -36,9 +36,9 @@ class pca:
         self.eigen_values_ = self.eigen_values_[::-1]
         self.eigen_vectors_ = self.eigen_vectors_.transpose()[::-1]
 
-        self.u_, self.s_, self.u_transpose_ = np.dot(self.x_, self.eigen_vectors_[:][:k].transpose()), \
+        self.left_, self.c_, self.right_ = np.dot(self.x_, self.eigen_vectors_[:][:k].transpose()), \
                                               np.diag(self.eigen_values_[:k]), \
-                                              self.eigen_vectors_.transpose()[:k]
+                                              self.eigen_vectors_[:, :k]
 
     def transform(self):
         """
@@ -49,7 +49,7 @@ class pca:
         Returns:
             Transforms and returns X in the latent semantic space and the latent semantics
         """
-        return self.u_, self.s_, self.u_transpose_
+        return self.left_, self.c_, self.right_
 
 
 def get_transformation(data, right_vector):
