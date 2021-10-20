@@ -12,18 +12,22 @@ def start_task8():
         simp = pickle.load(handle)
 
     latent_input_file = 'none'
-    while not os.path.isfile(os.path.join(os.getcwd(), latent_input_file+'.pickle')):
-        latent_input_file = input('name of latent file: ')
+    while not (
+            os.path.isfile(os.path.join(os.getcwd(), latent_input_file + '.pickle')) and latent_input_file.startswith(
+            '4')):
+        latent_input_file = input(
+            'Name of latent file from task 4 (subject-subject similarity matrix is contained within): ')
+
     with open(latent_input_file+'.pickle', 'rb') as handle:
         latent_input = pickle.load(handle)
 
     n = -1
     while not 1 <= n <= 40:
-        n = int(input('enter n: '))
+        n = int(input('Enter n (most similar subjects): '))
 
     m = -1
     while not 1 <= m <= n:
-        m = int(input('enter m: '))
+        m = int(input('Enter m (most significant m subjects): '))
 
     s_s_simp = latent_input['simp']
     transition_matrix = graph_utilities.get_transition_matrix(s_s_simp, n)

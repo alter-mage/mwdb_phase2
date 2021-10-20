@@ -2,10 +2,11 @@ import pickle
 import utilities
 import csv
 
+
 def start_task3():
     with open('metadata.pickle', 'rb') as handle:
         metadata = pickle.load(handle)
-    
+
     with open('simp.pickle', 'rb') as handle:
         simp = pickle.load(handle)
 
@@ -17,7 +18,7 @@ def start_task3():
     k = -1
     while not (1 <= k <= k_upper_limit - 1):
         k = int(input('value for k: '))
-    
+
     reduction_technique = -1
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
@@ -32,8 +33,9 @@ def start_task3():
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, Tsim)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
 
-    latent_out_file_path = '%s_%s_%s_%s' % ('3', str(model), str(k), str(reduction_technique))
-    with open(latent_out_file_path+'.pickle', 'wb') as handle:
+    latent_out_file_path = '%s_%s_%s_%s' % ('3', utilities.feature_models[model], str(k),
+                                            utilities.reduction_technique_map_str[reduction_technique])
+    with open(latent_out_file_path + '.pickle', 'wb') as handle:
         pickle.dump({
             'left_matrix': left_matrix,
             'core_matrix': core_matrix,
@@ -42,9 +44,9 @@ def start_task3():
         }, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     fields = ['X']
-    for i in range(1, k+1):
-        fields.append('k_'+str(i))
-    with open(latent_out_file_path+'.csv', 'w', newline='') as handle:
+    for i in range(1, k + 1):
+        fields.append('k_' + str(i))
+    with open(latent_out_file_path + '.csv', 'w', newline='') as handle:
         write = csv.writer(handle)
         write.writerow(fields)
         for i, row in enumerate(left_matrix):

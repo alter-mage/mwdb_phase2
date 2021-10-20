@@ -37,7 +37,8 @@ def start_task2():
 
     left_matrix_aggregated = aggregation.aggregate_by_mean(left_matrix, data_matrix_index_map)
 
-    latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', str(model), str(y), str(k), str(reduction_technique))
+    latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', utilities.feature_models[model], str(y), str(k),
+                                               utilities.reduction_technique_map_str[reduction_technique])
     with open(latent_out_file_path+'.pickle', 'wb') as handle:
         pickle.dump({
             'left_matrix': left_matrix,

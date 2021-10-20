@@ -10,6 +10,7 @@ import elbp
 import hog
 
 feature_models = ['color_moment', 'elbp', 'hog']
+reduction_technique_map_str = ["PCA", "SVD", "LDA", "k_means"]
 reduction_technique_map = [pca.pca, svd.svd, lda.lda, k_means.k_means]
 valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise1', 'noise2', 'original',
            'poster', 'rot', 'smooth', 'stipple']

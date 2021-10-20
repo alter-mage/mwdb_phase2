@@ -13,9 +13,9 @@ def start_task6():
     with open('simp.pickle', 'rb') as handle:
         simp = pickle.load(handle)
 
-    query = ''
-    while query not in os.listdir('query'):
-        query = input('query image filename: ')
+    query = 'query.png'
+    while query not in os.listdir(os.getcwd()):
+        query = input('Query image filename (\'query.png\' does not exist): ')
 
     latent_semantics_file = ''
     while latent_semantics_file+'.pickle' not in os.listdir(os.getcwd()):
@@ -26,10 +26,13 @@ def start_task6():
     
     tokens = latent_semantics_file.split('_')
     task = int(tokens[0])
-    feature_model = int(tokens[1])
-    reduction_technique = int(tokens[-1])
+    if tokens[1] == 'color':
+        tokens[1] = 'color_moment'
+    feature_model = int(utilities.feature_models.index(tokens[1]))
+    reduction_technique = int(utilities.reduction_technique_map_str.index(tokens[-1]))
 
-    query_image = cv2.imread(os.path.join('query', query), cv2.IMREAD_GRAYSCALE)
+    # query_image = cv2.imread(os.path.join('query', query), cv2.IMREAD_GRAYSCALE)
+    query_image = cv2.imread(query, cv2.IMREAD_GRAYSCALE)
     query_features = utilities.feature_extraction[feature_model](query_image)
 
     right_matrix = latent_semantics['right_matrix']

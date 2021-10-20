@@ -13,28 +13,31 @@ def start_task5():
     with open('simp.pickle', 'rb') as handle:
         simp = pickle.load(handle)
 
-    query = ''
-    while query not in os.listdir('query'):
-        query = input('query image filename: ')
+    query = 'query.png'
+    while query not in os.listdir(os.getcwd()):
+        query = input('Query image filename (\'query.png\' does not exist): ')
 
     latent_semantics_file = ''
     while latent_semantics_file+'.pickle' not in os.listdir(os.getcwd()):
-        latent_semantics_file = input('latent semantics filename: ')
-    
+        latent_semantics_file = input('Latent semantics filename: ')
+
     n_upper_limit = len(metadata)
     n = -1
     while not (1 <= n <= n_upper_limit):
-        n = int(input('value for n: '))
+        n = int(input('Value for n (how many similar images): '))
     
     with open(latent_semantics_file+'.pickle', 'rb') as handle:
         latent_semantics = pickle.load(handle)
     
     tokens = latent_semantics_file.split('_')
     task = int(tokens[0])
-    feature_model = int(tokens[1])
-    reduction_technique = int(tokens[-1])
+    if tokens[1] == 'color':
+        tokens[1] = 'color_moment'
+    feature_model = int(utilities.feature_models.index(tokens[1]))
+    reduction_technique = int(utilities.reduction_technique_map_str.index(tokens[-1]))
 
-    query_image = cv2.imread(os.path.join('query', query), cv2.IMREAD_GRAYSCALE)
+    #query_image = cv2.imread(os.path.join('query', query), cv2.IMREAD_GRAYSCALE)
+    query_image = cv2.imread(query, cv2.IMREAD_GRAYSCALE)
     query_features = utilities.feature_extraction[feature_model](query_image)
 
     right_matrix = latent_semantics['right_matrix']

@@ -12,24 +12,30 @@ def start_task9():
         simp = pickle.load(handle)
 
     latent_input_file = 'none'
-    while not os.path.isfile(os.path.join(os.getcwd(), latent_input_file+'.pickle')):
-        latent_input_file = input('name of latent file: ')
+    while not (
+            os.path.isfile(os.path.join(os.getcwd(), latent_input_file + '.pickle')) and latent_input_file.startswith(
+            '4')):
+        latent_input_file = input(
+            'Name of latent file from task 4 (subject-subject similarity matrix is contained within): ')
+
     with open(latent_input_file+'.pickle', 'rb') as handle:
         latent_input = pickle.load(handle)
 
     n = -1
     while not 1 <= n <= 40:
-        n = int(input('enter n: '))
+        n = int(input('Enter n (most similar subjects): '))
 
     m = -1
     while not 1 <= m <= n:
-        m = int(input('enter m: '))
+        m = int(input('Enter m (most significant m subjects): '))
 
     subject_seeds = []
     for i in range(3):
         subject_seed = -1
         while not 1 <= subject_seed <= 40:
-            subject_seed = int(input('enter a subject seed: '))
+            subject_seed = int(input('Enter a subject ID: '))
+            if subject_seed in subject_seeds:
+                subject_seed = -1
         subject_seeds.append(subject_seed)
 
     s_s_simp = latent_input['simp']
@@ -43,3 +49,6 @@ def start_task9():
         write.writerow(fields)
         writer = csv.writer(handle)
         writer.writerows(ranks)
+
+if __name__ == '__main__':
+    start_task9()
