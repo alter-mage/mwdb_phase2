@@ -71,7 +71,7 @@ def all_data(metadata, feature_model):
     data_matrix = []
     for key in sorted(metadata):
         data_matrix.append(metadata[key][utilities.feature_models[feature_model]])
-    return sorted(metadata)
+    return sorted(metadata), data_matrix
 
 
 class aggregation:
