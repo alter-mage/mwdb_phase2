@@ -31,7 +31,6 @@ def start_task2():
         reduction_technique = int(input('reduction technique (0-3): '))
 
     types, data_matrix = aggregation.group_by_type(metadata, y, model)
-    data_matrix = min_max_scaler.transform(data_matrix)
 
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, data_matrix)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()

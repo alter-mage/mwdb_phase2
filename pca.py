@@ -52,6 +52,10 @@ class pca:
         return self.u_, self.s_, self.u_transpose_
 
 
+def get_transformation(data, right_vector):
+    return np.dot(np.array(data), np.array(right_vector))
+
+
 if __name__ == '__main__':
     dummy_data = [[1, 2, 3], [2, 4, 6]]
     pca_obj = pca(1, dummy_data)

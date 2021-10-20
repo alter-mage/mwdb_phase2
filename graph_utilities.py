@@ -5,7 +5,6 @@ import numpy as np
 
 
 def get_rank_with_seeds(transition_m, m, seeds_list):
-
     random_jump_factor = 0.5
     seeds_v = np.zeros((40, 1))
     for seed in seeds_list:

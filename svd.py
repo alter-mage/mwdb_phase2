@@ -22,7 +22,7 @@ class svd:
                 Transforms and returns X in the latent semantic space and latent semantics
         """
 
-    def __init__(self, Datamatrix,k ):
+    def __init__(self, k, Datamatrix,):
         """
         Parameters:
             Datamatrix: ndarray of shape (num_objects, num_features)
@@ -34,23 +34,23 @@ class svd:
         self.matrix1 = Datamatrix @ Datamatrix.transpose()
         self.matrix2 = Datamatrix.transpose() @ Datamatrix
         
-        self.eigen_values1,self.eigen_vectors1 = np.linalg.eig(self.matrix1)
-        self.eigen_values2,self.eigen_vectors2 = np.linalg.eig(self.matrix2)
+        self.eigen_values1, self.eigen_vectors1 = np.linalg.eig(self.matrix1)
+        self.eigen_values2, self.eigen_vectors2 = np.linalg.eig(self.matrix2)
         
         self.idx1 = self.eigen_values1.argsort()[::-1]   
         self.eigen_values1 = self.eigen_values1[self.idx1]
-        self.eigen_vectors1 = self.eigen_vectors1[:,self.idx1]
+        self.eigen_vectors1 = self.eigen_vectors1[:, self.idx1]
         
         self.idx2 = self.eigen_values2.argsort()[::-1]   
         self.eigen_values2 = self.eigen_values2[self.idx2]
-        self.eigen_vectors2 = self.eigen_vectors2[:,self.idx2]
+        self.eigen_vectors2 = self.eigen_vectors2[:, self.idx2]
         
-        self.left = self.eigen_vectors1[:,:k]
+        self.left = self.eigen_vectors1[:, :k]
         self.S = np.diag(self.eigen_values1[:k]**0.5)
-        self.right = self.eigen_vectors2[:,:k].transpose()
+        self.right = self.eigen_vectors2[:, :k].transpose()
 
 
-    def transform(self, X):
+    def transform(self):
         """
         parameters:
             X: The matrix of object*features
@@ -61,11 +61,11 @@ class svd:
         """
 
         # might want fit_transform, but should have been fitted already so ¯\_(ツ)_/¯
-        return self.left , self.S ,self.right
+        return self.left, self.S, self.right
 
 
-
-
+def get_transformation(data, right_matrix):
+    return np.dot(np.array(data), np.array(right_matrix))
 
 
     # Might be helpful later
