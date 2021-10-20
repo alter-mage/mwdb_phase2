@@ -3,6 +3,9 @@ import numpy as np
 import scipy
 import scipy.spatial
 
+import min_max_scaler
+
+
 class k_means:
     """
     Represents K-means feature reduction class class
@@ -64,6 +67,8 @@ class k_means:
 
 
 def get_transformation(data, right_matrix):
+    if len(data.shape) != 2:
+        data = np.reshape(data, (1, len(data)))
     return np.reciprocal(
         np.array(scipy.spatial.distance.cdist(np.array(data), np.array(right_matrix), metric='euclidean'), dtype=np.float32)
     )
