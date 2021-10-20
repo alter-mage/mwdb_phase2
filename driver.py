@@ -18,7 +18,7 @@ task_map = [task0.start_task0, task1.start_task1, task2.start_task2, task3.start
 if __name__ == '__main__':
     metadata_file = os.path.join(os.getcwd(), 'metadata.pickle')
     simp_file = os.path.join(os.getcwd(), 'simp.pickle')
-    if not os.path.isfile(metadata_file):
+    if not (os.path.isfile(metadata_file) and os.path.isfile(simp_file)):
         task0.start_task0(metadata_file, simp_file)
 
     inpt = ''
