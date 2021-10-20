@@ -30,10 +30,12 @@ def start_task2():
     while not (0 <= reduction_technique <= 3):
         reduction_technique = int(input('reduction technique (0-3): '))
 
-    types, data_matrix = aggregation.group_by_type(metadata, y, model)
+    data_matrix, types, data_matrix_index_map = aggregation.group_by_type(metadata, y, model)
 
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, data_matrix)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
+
+    left_matrix_aggregated = aggregation.aggregate_by_mean(left_matrix, data_matrix_index_map)
 
     latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', str(model), str(y), str(k), str(reduction_technique))
     with open(latent_out_file_path+'.pickle', 'wb') as handle:
@@ -49,7 +51,7 @@ def start_task2():
     with open(latent_out_file_path+'.csv', 'w', newline='') as handle:
         write = csv.writer(handle)
         write.writerow(fields)
-        for i, row in enumerate(left_matrix):
+        for i, row in enumerate(left_matrix_aggregated):
             r = row.tolist()
             r.insert(0, types[i])
             write.writerow(r)

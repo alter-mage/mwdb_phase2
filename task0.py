@@ -38,7 +38,7 @@ def start_task0(metadata_file, simp_file):
         pickle.dump(similarity_map, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     print('dump successful')
-x
+
 
 if __name__ == '__main__':
     start_task0('metadata.pickle', 'simp.pickle')
