@@ -38,7 +38,7 @@ def start_task5():
     query_features = utilities.feature_extraction[feature_model](query_image)
 
     right_matrix = latent_semantics['right_matrix']
-    images, all_data_features = aggregation.all_data(metadata, query_features, feature_model)
+    all_data_features = aggregation.all_data(metadata, query_features, feature_model)
     query_transform = all_data_features[-1]
     all_data_transform = all_data_features[:-1]
     
@@ -46,8 +46,8 @@ def start_task5():
         sim = simp[utilities.feature_models[feature_model]]['T']
         if task == 4:
             sim = simp[utilities.feature_models[feature_model]]['S']
-        query_transform = np.dot(np.array(query_features), np.array(sim).T)
-        all_data_transform = np.dot(np.array(all_data_features), np.array(sim).T)
+        query_transform = np.dot(np.array(query_transform), np.array(sim).T)
+        all_data_transform = np.dot(np.array(all_data_transform), np.array(sim).T)
         
     all_data_k = utilities.query_transformation[reduction_technique](all_data_transform, right_matrix)
     query_k = utilities.query_transformation[reduction_technique](query_transform, right_matrix)

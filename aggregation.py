@@ -2,7 +2,6 @@ import numpy as np
 import utilities
 import min_max_scaler
 
-
 def group_by_type(metadata, y, feature_model):
     type_image_map = {}
     for key in sorted(metadata):
@@ -83,7 +82,7 @@ def all_data(metadata, query_features, feature_model):
         data_matrix.append(metadata[key][utilities.feature_models[feature_model]])
     data_matrix.append(query_features)
     data_matrix = np.array(min_max_scaler.transform(data_matrix))
-    return sorted(metadata), data_matrix
+    return data_matrix
 
 
 class aggregation:
