@@ -51,6 +51,10 @@ class svd:
         self.S = np.diag(self.eigen_values1[:k] ** 0.5)
         self.right = self.eigen_vectors2[:, :k].transpose()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f50347ae0f9529312f8a2b3090a3264d4fe6fba
     def transform(self):
         """
         parameters:

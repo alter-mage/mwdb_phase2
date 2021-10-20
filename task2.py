@@ -23,7 +23,7 @@ def start_task2():
     # k measured starting from 1, not 0
     k_upper_limit = len(metadata[next(iter(metadata))][utilities.feature_models[model]])
     k = -1
-    while not (1 <= k <= k_upper_limit - 1):  # STRIKE there should also be an upper limit validation, but that needs to be fetched from how much meta data,
+    while not (1 <= k <= k_upper_limit - 1):
         k = int(input('value for k: '))
 
     reduction_technique = -1
@@ -31,12 +31,11 @@ def start_task2():
         reduction_technique = int(input('reduction technique (0-3): '))
 
     types, data_matrix = aggregation.group_by_type(metadata, y, model)
-    data_matrix = min_max_scaler.transform(data_matrix)
 
     reduction_obj_right = utilities.reduction_technique_map[reduction_technique](k, data_matrix)
     left_matrix, core_matrix, right_matrix = reduction_obj_right.transform()
 
-    latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', utilities.feature_models[model], str(y), str(k), str(reduction_technique))
+    latent_out_file_path = '%s_%s_%s_%s_%s' % ('2', str(model), str(y), str(k), str(reduction_technique))
     with open(latent_out_file_path+'.pickle', 'wb') as handle:
         pickle.dump({
             'left_matrix': left_matrix,

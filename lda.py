@@ -20,7 +20,7 @@ class lda:
             Returns a Matrix of K latent features * N objects
             
     """
-    def __init__(self, data_matrix, k):
+    def __init__(self, k, data_matrix):
         """
         parameters:
             data_matrix: ndarray of shape (num_objects, num_features)
@@ -31,8 +31,8 @@ class lda:
         """
         self.data_matrix_ = data_matrix
         self.k_ = k
-        self.lda_ = LDA(n_components=self.k_).fit(self.data_matrix_)
-        self.u_, self.s_, self.v_ = self.lda_.transform(data_matrix), [], self.lda_.components_
+        self.lda_ = LDA(n_components=self.k_).fit_transform(self.data_matrix_)
+        self.u_, self.s_, self.v_ = self.lda_, [], self.lda_.components_
     
     def transform(self):
         """
