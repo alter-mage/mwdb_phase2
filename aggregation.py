@@ -77,10 +77,12 @@ def group_by_subject_all(metadata, feature_model):
     return sorted(subject_image_map), data_matrix, s_s_similarity
 
 
-def all_data(metadata, feature_model):
+def all_data(metadata, query_features, feature_model):
     data_matrix = []
     for key in sorted(metadata):
         data_matrix.append(metadata[key][utilities.feature_models[feature_model]])
+    data_matrix.append(query_features)
+    data_matrix = np.array(min_max_scaler.transform(data_matrix))
     return sorted(metadata), data_matrix
 
 

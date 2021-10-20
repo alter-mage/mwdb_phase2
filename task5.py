@@ -36,20 +36,20 @@ def start_task5():
 
     query_image = cv2.imread(os.path.join('query', query), cv2.IMREAD_GRAYSCALE)
     query_features = utilities.feature_extraction[feature_model](query_image)
-    query_transform = query_features
 
     right_matrix = latent_semantics['right_matrix']
-    all_data_k = latent_semantics['left_matrix']
+    images, all_data_features = aggregation.all_data(metadata, query_features, feature_model)
+    query_transform = all_data_features[-1]
+    all_data_transform = all_data_features[:-1]
     
     if task > 2:
         sim = simp[utilities.feature_models[feature_model]]['T']
         if task == 4:
             sim = simp[utilities.feature_models[feature_model]]['S']
         query_transform = np.dot(np.array(query_features), np.array(sim).T)
-        all_data_features = aggregation.all_data(metadata, feature_model)
         all_data_transform = np.dot(np.array(all_data_features), np.array(sim).T)
-        all_data_k = utilities.query_transformation[reduction_technique](all_data_transform, right_matrix)
-
+        
+    all_data_k = utilities.query_transformation[reduction_technique](all_data_transform, right_matrix)
     query_k = utilities.query_transformation[reduction_technique](query_transform, right_matrix)
     similarity_scores = utilities.similarity_map[feature_model](query_k, all_data_k)
     similarities = {}
@@ -64,12 +64,14 @@ def start_task5():
     for i, axis in enumerate(axes):
         if i == 0:
             img = query_image
-            axis.text(74, 35, 'Original image', size=9)
+            axis.text(74, 25, query, size=9)
+            axis.text(74, 45, 'Original image', size=9)
         else:
             img = metadata[images[i-1]]['image']
-            axis.text(74, 35, str(scores[i-1]), size=9)
+            axis.text(74, 25, images[i-1], size=9)
+            axis.text(74, 45, str(scores[i-1]), size=9)
             topk.append(img)
-        axis.imshow(img)#, cmap='gray')
+        axis.imshow(img, cmap='gray')
         axis.tick_params(left = False, right = False, labelleft = False, labelbottom = False, bottom = False)
     fig.suptitle(str(n)+' Most Similar Images - '+utilities.similarity_measures[feature_model], size=10)
     plt.show()
