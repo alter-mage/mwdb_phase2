@@ -15,7 +15,8 @@ def start_task6():
 
     query = 'query.png'
     while query not in os.listdir(os.getcwd()):
-        query = input('Query image filename (\'query.png\' does not exist): ')
+        query = input('Query image .png filename (\'query.png\' does not exist): ')
+        query = query + '.png'
 
     latent_semantics_file = ''
     while latent_semantics_file+'.pickle' not in os.listdir(os.getcwd()):
