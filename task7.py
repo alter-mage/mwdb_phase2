@@ -20,7 +20,7 @@ def start_task7():
 
     latent_semantics_file = ''
     while latent_semantics_file+'.pickle' not in os.listdir(os.getcwd()):
-        latent_semantics_file = input('latent semantics filename: ')
+        latent_semantics_file = input('Input the latent semantics filename: ')
     
     with open(latent_semantics_file+'.pickle', 'rb') as handle:
         latent_semantics = pickle.load(handle)

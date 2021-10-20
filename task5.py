@@ -20,7 +20,7 @@ def start_task5():
 
     latent_semantics_file = ''
     while latent_semantics_file+'.pickle' not in os.listdir(os.getcwd()):
-        latent_semantics_file = input('Latent semantics filename: ')
+        latent_semantics_file = input('Input the latent semantics filename: ')
 
     n_upper_limit = len(metadata)
     n = -1

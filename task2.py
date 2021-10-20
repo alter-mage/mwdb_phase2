@@ -12,11 +12,12 @@ def start_task2():
     # I thought we should include validation for all.
     model = -1
     while not (0 <= model <= 2):
-        model = int(input('model number (0-2): '))
+        print(utilities.feature_models)
+        model = int(input('Select the model number (0-2): '))
 
     yinvalid, y = True, -1
     while yinvalid:
-        y = int(input('value for Y: '))  # should be 1-40 for the Y value
+        y = int(input('Input the value for Y (1-40): '))  # should be 1-40 for the Y value
         if 1 <= y <= 40:
             yinvalid = False
 
@@ -24,11 +25,12 @@ def start_task2():
     k_upper_limit = len(metadata[next(iter(metadata))][utilities.feature_models[model]])
     k = -1
     while not (1 <= k <= k_upper_limit - 1):
-        k = int(input('value for k: '))
+        k = int(input('Input the value for k: '))
 
     reduction_technique = -1
     while not (0 <= reduction_technique <= 3):
-        reduction_technique = int(input('reduction technique (0-3): '))
+        print(utilities.reduction_technique_map_str)
+        reduction_technique = int(input('Select the reduction technique number (0-3): '))
 
     data_matrix, types, data_matrix_index_map = aggregation.group_by_type(metadata, y, model)
 
