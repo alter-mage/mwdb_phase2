@@ -8,16 +8,13 @@ def transform(DataMatrix):
     Returns:
         Data_Matrix_transformed: Transformed mix max matrix 
     """
-    try:
-        DataMatrix = np.array(DataMatrix)
-        
-        Scaler = MinMaxScaler()
-        Scaler.fit(DataMatrix)
+    DataMatrix = np.array(DataMatrix)
 
-        Data_matrix_transformed = Scaler.transform(DataMatrix)
-        return Data_matrix_transformed
-    except:
-        print("Something went wrong in min_max_scaler file")
+    Scaler = MinMaxScaler()
+    Scaler.fit(DataMatrix)
+
+    Data_matrix_transformed = Scaler.transform(DataMatrix)
+    return Data_matrix_transformed
 
 #testing 
 #data = np.array([[-1, 2], [-0.5, 6], [0, 10], [1, 18]])

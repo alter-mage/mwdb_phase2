@@ -22,14 +22,14 @@ if __name__ == '__main__':
         task0.start_task0(metadata_file, simp_file)
 
     inpt = ''
-    while not inpt == 'q':
+    while True:
         inpt = input('Enter task number (1-9, q to quit): ')
-        try:
-            task = int(inpt)
-            if 1 <= task <= 9:
-                task_map[task]()
-        except:
-            pass
+        if inpt == 'q':
+            break
+
+        task = int(inpt)
+        if 1 <= task <= 9:
+            task_map[task]()
 
 
 

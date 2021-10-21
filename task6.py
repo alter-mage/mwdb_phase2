@@ -14,9 +14,10 @@ def start_task6():
         simp = pickle.load(handle)
 
     query = 'query.png'
-    while query not in os.listdir(os.getcwd()):
+    while query not in os.listdir(os.path.join(os.getcwd(), 'query')):
         query = input('Query image .png filename (\'query.png\' does not exist): ')
         query = query + '.png'
+    query = os.path.join(os.getcwd(), 'query', query)
 
     latent_semantics_file = ''
     while latent_semantics_file+'.pickle' not in os.listdir(os.getcwd()):

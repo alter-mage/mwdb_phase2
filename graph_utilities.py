@@ -40,7 +40,7 @@ def get_rank(similarity_m, m):
 
         convergence = True
         for i, row in enumerate(pagerank_error):
-            if pagerank_erro8r_new[i] - pagerank_error[i] / pagerank_error[i] > 0.1:
+            if pagerank_error_new[i] - pagerank_error[i] / pagerank_error[i] > 0.1:
                 #RuntimeWarning: invalid value encountered in double_scalars
                 convergence = False
         pagerank = pagerank_new

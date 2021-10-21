@@ -10,9 +10,9 @@ import elbp
 import hog
 
 feature_models = ['color_moment', 'elbp', 'hog']
-reduction_technique_map_str = ["PCA", "SVD", "LDA", "k_means"]
+reduction_technique_map_str = ["PCA", "SVD", "LDA", "kmeans"]
 reduction_technique_map = [pca.pca, svd.svd, lda.lda, k_means.k_means]
-valid_x = ['cc', 'con', 'detail', 'emboss', 'jitter', 'neg', 'noise01', 'noise02', 'original',
+valid_x = ['cc', 'con', 'emboss', 'jitter', 'neg', 'noise01', 'noise02', 'original',
            'poster', 'rot', 'smooth', 'stipple']
 similarity_measures = ['1/L1 distance', 'Cosine similarity', '1/Earth Mover\'s distance']
 similarity_map = [color_moment_similarity.get_similarity, elbp_similarity.get_similarity, hog_similarity.get_similarity]
