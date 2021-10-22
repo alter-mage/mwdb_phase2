@@ -3,26 +3,38 @@ import utilities
 import csv
 
 def start_task4():
+    # Reading metadata.pickle file, image representations
     with open('metadata.pickle', 'rb') as handle:
         metadata = pickle.load(handle)
-    
+
+    # Reading simp.pickle file, transformation matrices
     with open('simp.pickle', 'rb') as handle:
         simp = pickle.load(handle)
 
+    # User Input: Model Number
     model = -1
+    print()
+    print("Data Models:")
+    for index, value in enumerate(utilities.feature_models):
+        print(index, value)
     while not (0 <= model <= 2):
-        print(utilities.feature_models)
-        model = int(input('Select the model number (0-2): '))
+        model = int(input('Enter Model Number (0-2): '))
 
+    # Calculating upper limit of k
+    # k measured starting from 1, not 0
     k_upper_limit = len(metadata[next(iter(metadata))][utilities.feature_models[model]])
     k = -1
     while not (1 <= k <= k_upper_limit - 1):
         k = int(input('Input the value for k: '))
-    
+
+    # User Input: reduction_technique
     reduction_technique = -1
+    print()
+    print("Reduction Techniques:")
+    for index, value in enumerate(utilities.reduction_technique_map_str):
+        print(index, value)
     while not (0 <= reduction_technique <= 3):
-        print(utilities.reduction_technique_map_str)
-        reduction_technique = int(input('Select the reduction technique number (0-3): '))
+        reduction_technique = int(input('Enter reduction technique number (0-3): '))
 
     Ssim = simp[utilities.feature_models[model]]['Ssim']
     subjects = simp[utilities.feature_models[model]]['subjects']
@@ -55,6 +67,8 @@ def start_task4():
             r.insert(0, subjects[i])
             write.writerow(r)
 
+    print()
+    print("Output File Names: " + latent_out_file_path + ".csv/.pickle")
 
 if __name__ == '__main__':
     start_task4()
