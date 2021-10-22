@@ -25,13 +25,13 @@ def start_task1():
     while x not in utilities.valid_x:
         x = input('Enter X (string): ')
 
-    # Measuring upper limit of k
+    # Calculating upper limit of k
     # k measured starting from 1, not 0
     k_upper_limit = len(metadata[next(iter(metadata))][utilities.feature_models[model]])
-    k = -1
 
     # User Input: k
     print()
+    k = -1
     while not (1 <= k <= k_upper_limit - 1):
         k = int(input('Enter value of k (latent semantics): '))
 
