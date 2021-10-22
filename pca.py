@@ -34,7 +34,7 @@ class pca:
         self.x_covariance_ = np.cov(self.x_.transpose())
         self.eigen_values_, self.eigen_vectors_ = np.linalg.eigh(self.x_covariance_)
         self.eigen_values_ = self.eigen_values_[::-1]
-        self.eigen_vectors_ = self.eigen_vectors_.transpose()[::-1]
+        self.eigen_vectors_ = self.eigen_vectors_[ : , ::-1]
 
         self.left_, self.c_, self.right_ = np.dot(self.x_, self.eigen_vectors_[:][:k].transpose()), \
                                               np.diag(self.eigen_values_[:k]), \
