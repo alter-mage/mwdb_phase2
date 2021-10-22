@@ -6,11 +6,16 @@ import utilities
 
 # Sample Comment
 def start_task0(metadata_file, simp_file):
+    print ("Caution: Please ensure data is present in a directory 'sample_images' before exeuction of this script")
+
+    # Ensuring that folder of dataset exists
     images_dir = os.path.join(os.getcwd(), 'sample_images')
     if not os.path.isdir(images_dir):
-        print('download image dataset first')
+        print('Dataset not present: Please download image dataset, save dataset in folder "sample_images"')
+        print("Terminating...")
         quit()
 
+    # Iterating through folder and finding image models
     images = {}
     for filename in os.listdir(images_dir):
         img = cv2.imread(os.path.join(images_dir, filename), cv2.IMREAD_GRAYSCALE)
@@ -19,9 +24,11 @@ def start_task0(metadata_file, simp_file):
             for i in range(3):
                 images[filename][utilities.feature_models[i]] = utilities.feature_extraction[i](img)
 
+    # Saving image models in pickle file 'metadata.pickle
     with open(metadata_file, 'wb') as handle:
         pickle.dump(images, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
+    # Computing similarity & transformation matrices
     similarity_map = {}
     for i in range(3):
         types, type_matrix, type_type_similarity = aggregation.group_by_type_all(images, i)
@@ -35,10 +42,11 @@ def start_task0(metadata_file, simp_file):
             'subjects': subjects
         }
 
+    # Saving similarity & transformation matrices in 'simp.pickle'
     with open(simp_file, 'wb') as handle:
         pickle.dump(similarity_map, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-    print('dump successful')
+    print('Task0 Successfully Executed, 2 dumps saved: metadata.pickle, simp.pickle')
 
 
 if __name__ == '__main__':
