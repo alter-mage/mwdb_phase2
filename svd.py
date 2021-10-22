@@ -50,7 +50,7 @@ class svd:
         self.c_ = np.diag(np.sqrt(self.c_)[:k])
 
         self.left_ = self.eigen_vectors1[:, :k]
-        self.right_ = self.eigen_vectors2[:k].transpose()
+        self.right_ = self.eigen_vectors2[:, :k]
 
     def transform(self):
         """
