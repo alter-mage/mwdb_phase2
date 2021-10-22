@@ -4,7 +4,7 @@ import cv2
 import aggregation
 import utilities
 
-
+# Sample Comment
 def start_task0(metadata_file, simp_file):
     images_dir = os.path.join(os.getcwd(), 'sample_images')
     if not os.path.isdir(images_dir):
