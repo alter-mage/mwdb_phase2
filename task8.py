@@ -2,6 +2,7 @@ import pickle
 import os
 import graph_utilities
 import csv
+import numpy as np
 
 
 def start_task8():
