@@ -14,8 +14,9 @@ def start_task9():
 
     latent_input_file = 'none'
     while not (
-            os.path.isfile(os.path.join(os.getcwd(), latent_input_file + '.pickle')) and latent_input_file.startswith(
-        '4')):
+            os.path.isfile(os.path.join(os.getcwd(), latent_input_file + '.pickle')) and
+            latent_input_file.startswith('4')
+    ):
         latent_input_file = input(
             'Name of latent file from task 4 (subject-subject similarity matrix is contained within): ')
 

@@ -23,13 +23,7 @@ def start_task3():
 
     # Calculating upper limit of k
     # k measured starting from 1, not 0
-    k_upper_limit = len(metadata[next(iter(metadata))][utilities.feature_models[model]])
 
-    # User Input: k
-    print()
-    k = -1
-    while not (1 <= k <= k_upper_limit - 1):
-        k = int(input('Enter value of k (latent semantics): '))
 
     # User Input: reduction_technique
     reduction_technique = -1
@@ -42,6 +36,14 @@ def start_task3():
 
     Tsim = simp[utilities.feature_models[model]]['Tsim']
     types = simp[utilities.feature_models[model]]['types']
+
+    k_upper_limit = len(Tsim)
+    # User Input: k
+    print()
+    k = -1
+    while not (1 <= k <= k_upper_limit):
+        k = int(input('Enter value of k with upper limit of %s (latent semantics): ' % k_upper_limit))
+
     with open('Tsim.csv', 'w', newline='') as handle:
         write = csv.writer(handle)
         write.writerow(types)

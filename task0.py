@@ -4,9 +4,10 @@ import cv2
 import aggregation
 import utilities
 
+
 # Sample Comment
 def start_task0(metadata_file, simp_file):
-    print ("Caution: Please ensure data is present in a directory 'sample_images' before exeuction of this script")
+    print("Caution: Please ensure data is present in a directory 'sample_images' before exeuction of this script")
 
     # Ensuring that folder of dataset exists
     images_dir = os.path.join(os.getcwd(), 'sample_images')

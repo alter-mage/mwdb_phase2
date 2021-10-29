@@ -1,5 +1,6 @@
 import scipy.spatial
 
+
 def get_similarity(x1, x2):
     similarities = []
     for row in x2:

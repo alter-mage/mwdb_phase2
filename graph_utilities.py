@@ -116,7 +116,7 @@ def get_robust_ranks(transition_matrix, teleportation_discount_matrix, m):
 
         convergence = True
         for i, row in enumerate(robust_rank_error):
-            if robust_rank_error_new[i] - robust_rank_error[i] > 0.01:
+            if robust_rank_error_new[i] - robust_rank_error[i] > 0.001:
                 # RuntimeWarning: invalid value encountered in double_scalars
                 convergence = False
         robust_rank = robust_rank_new

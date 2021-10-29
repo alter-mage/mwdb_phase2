@@ -22,10 +22,6 @@ def start_task4():
 
     # Calculating upper limit of k
     # k measured starting from 1, not 0
-    k_upper_limit = len(metadata[next(iter(metadata))][utilities.feature_models[model]])
-    k = -1
-    while not (1 <= k <= k_upper_limit - 1):
-        k = int(input('Input the value for k: '))
 
     # User Input: reduction_technique
     reduction_technique = -1
@@ -38,6 +34,12 @@ def start_task4():
 
     Ssim = simp[utilities.feature_models[model]]['Ssim']
     subjects = simp[utilities.feature_models[model]]['subjects']
+
+    k_upper_limit = len(Ssim)
+    k = -1
+    while not (1 <= k <= k_upper_limit):
+        k = int(input('Input the value for k with upper limit as %s: ' % k_upper_limit))
+
     with open('Ssim.csv', 'w', newline='') as handle:
         write = csv.writer(handle)
         write.writerow(subjects)

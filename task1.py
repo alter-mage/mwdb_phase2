@@ -14,7 +14,7 @@ def start_task1():
     print()
     print ("Data Models:")
     for index, value in enumerate(utilities.feature_models):
-        print (index, value)
+        print(index, value)
     while not (0 <= model <= 2):
         model = int(input('Enter Model Number (0-2): '))
 
